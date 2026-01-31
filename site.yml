@@ -1,0 +1,10 @@
+- name: Enterprise Network Automation
+  hosts: cisco
+  gather_facts: no
+
+  roles:
+    - role: backup
+    - role: cisco_base
+    - role: safe_deploy
+    - role: vlan_mgmt
+    - role: bgp

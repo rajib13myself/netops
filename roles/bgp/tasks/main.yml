@@ -1,0 +1,19 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/bgp
+
+- name: Configure BGP
+  cisco.ios.ios_config:
+    lines:
+      - router bgp 65000
+      - bgp log-neighbor-changes
+      - neighbor 1.1.1.1 remote-as 65001
+
+- name: Validate BGP neighbors
+  cisco.ios.ios_command:
+    commands:
+      - show ip bgp summary
+  register: bgp_output
+
+- debug:
+    var: bgp_output.stdout

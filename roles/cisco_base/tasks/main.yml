@@ -1,0 +1,21 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/cisco_base
+
+- name: Configure banner
+  cisco.ios.ios_config:
+    lines:
+      - banner motd ^Authorized Access Only^
+
+- name: Disable unsued services
+  cisco.ios.iso_config:
+    lines:
+      - no ip http server
+      - no ip http secure-server
+      - service passwrod-encryption
+
+- name: Congiure logging
+  cisco.ios.ios_config:
+    lines:
+      - logging buffered 40960
+      - logging host 192.168.100.10

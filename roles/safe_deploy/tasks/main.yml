@@ -1,0 +1,15 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/safe_deploy
+
+- block:
+    - name: Apply risky change
+      cisco.ios.ios_config:
+        lines:
+          - router ospf 10
+          - network 10.0.0.0 0.0.0.255 area 0
+
+  rescue:
+    - name: Rollback to backup
+      cisco.ios.ios_config:
+        src: "{{ backup_path }}"  
